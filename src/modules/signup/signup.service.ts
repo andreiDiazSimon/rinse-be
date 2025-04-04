@@ -19,10 +19,10 @@ export class SignupService {
   async addUserSignup(signupData: Partial<SignupEntity>): Promise<Object> {
     try {
       const existingUser = await this.signupRepository.findOne({
-        where: { email: signupData.email },
+        where: { name: signupData.name },
       });
       if (existingUser) {
-        throw new ConflictException('Email is already taken.');
+        throw new ConflictException('Name is already taken');
       }
       const newUser = this.signupRepository.create(signupData);
       const irereturn = await this.signupRepository.save(newUser);
