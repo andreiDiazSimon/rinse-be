@@ -1,4 +1,4 @@
-import { Injectable, Inject, ConflictException } from '@nestjs/common';
+import { Injectable, Inject, ConflictException,NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { SignupEntity } from './entities/signup.entity';
 
@@ -31,5 +31,16 @@ export class SignupService {
     } catch (error) {
       return error;
     }
+  }
+
+
+  async updateUser(id: number, updateData: Partial<SignupEntity>) {
+	  console.log(updateData)
+    const user = await this.signupRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    Object.assign(user, updateData);
+    return this.signupRepository.save(user);
   }
 }

@@ -13,4 +13,10 @@ export class SignupEntity {
 
   @Column()
   password: string;
+
+  @Column({ length: 500, nullable: true })  // home address can be longer and optional
+  homeAddress: string;
+
+  @Column({ length: 20, nullable: true })  // phone number optional
+  phoneNumber: string;
 }
