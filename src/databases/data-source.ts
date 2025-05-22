@@ -1,5 +1,9 @@
 import { DataSource } from 'typeorm';
-import { SignupEntity } from '../modules/signup/entities/signup.entity';
+import { User } from 'src/modules/signup/entities/users.entity';
+import { Machine } from 'src/modules/machines/machines.entity';
+import { ReservationService } from 'src/modules/reservations/reservation-service.entity';
+import { Reservation } from 'src/modules/reservations/reservations.entity';
+import { Service } from 'src/modules/services/services.entity';
 
 export const AppDataSource = new DataSource({
   type: 'mysql',
@@ -8,7 +12,7 @@ export const AppDataSource = new DataSource({
   username: 'root',
   password: 'password',
   database: 'rinse',
-  entities: [SignupEntity],
+  entities: [User, Machine, ReservationService, Reservation, Service],
   migrationsTableName: 'migrations',
   synchronize: true,
   logging: true,

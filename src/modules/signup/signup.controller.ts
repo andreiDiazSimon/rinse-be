@@ -1,4 +1,4 @@
-import { Controller, Patch, Param, Body , Post,Get} from '@nestjs/common';
+import { Controller, Patch, Param, Body, Post, Get } from '@nestjs/common';
 import { SignupService } from './signup.service';
 
 @Controller('/signup')
@@ -16,9 +16,8 @@ export class SignupController {
     return await this.signupService.addUserSignup(body);
   }
 
-
-@Patch(':id')
-async updateSignup(@Param('id') id: string, @Body() body: any) {
-  return this.signupService.updateUser(+id, body);
-}
+  @Patch(':id')
+  async updateSignup(@Param('id') id: string, @Body() body: any) {
+    return this.signupService.updateUser(+id, body);
+  }
 }

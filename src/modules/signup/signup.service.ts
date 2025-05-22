@@ -1,22 +1,27 @@
-import { Injectable, Inject, ConflictException,NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { SignupEntity } from './entities/signup.entity';
+import { User } from './entities/users.entity';
 
 @Injectable()
 export class SignupService {
   constructor(
     @Inject('SIGNUP_REPOSITORY')
-    private signupRepository: Repository<SignupEntity>,
+    private signupRepository: Repository<User>,
   ) {}
 
-  async findAllSignup(): Promise<SignupEntity[]> {
+  async findAllSignup(): Promise<User[]> {
     return this.signupRepository.find({
       order: { id: 'DESC' },
       take: 3,
     });
   }
 
-  async addUserSignup(signupData: Partial<SignupEntity>): Promise<Object> {
+  async addUserSignup(signupData: Partial<User>): Promise<Object> {
     try {
       const existingUser = await this.signupRepository.findOne({
         where: { name: signupData.name },
@@ -33,9 +38,8 @@ export class SignupService {
     }
   }
 
-
-  async updateUser(id: number, updateData: Partial<SignupEntity>) {
-	  console.log(updateData)
+  async updateUser(id: number, updateData: Partial<User>) {
+    console.log(updateData);
     const user = await this.signupRepository.findOne({ where: { id } });
     if (!user) {
       throw new NotFoundException('User not found');
